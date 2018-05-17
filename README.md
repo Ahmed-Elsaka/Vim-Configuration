@@ -1,5 +1,4 @@
 # Vim-Configuration
-<<<<<<< HEAD
 
 To apply this configuration on your linux machine :</br>
 	 -download the repo and change the names .</br>
