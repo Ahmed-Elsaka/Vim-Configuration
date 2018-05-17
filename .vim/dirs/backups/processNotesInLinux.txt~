@@ -1,0 +1,151 @@
+THE THREAD IS A PROCESS : 
+   the linux run a lot of processess  ; 
+    the processes may be threads du to applications , or 
+    one application  
+
+PROCESS OWNER:
+   - Each process has owner , the owner of the process who
+     run it; 
+    - the owner of startup processes is root user 
+    - process owner only can manage his process ; 
+    - when user run process , it inherit his privileges ;
+    
+
+
+PARENT & CHILD PROCESS : 
+    - when process run another process becomes the parent 
+        the new process become the child 
+    - the first process run in the system is "init" it starts
+        in the system boot , it become the parent of all PS 
+    - if the parent of process dies , the linux re-parented it
+        to "init" process 
+
+
+
+PROCESS IDs : 
+    - each process has unique number , it is calles PID 
+    - each process will maintain its PID and PPID : 
+            PID -> process id ; 
+            PPID -> PID of its parent ; 
+    - ex: "init" process : 
+        PID = 1, PPID = 0
+    - [COMMANDS] : 
+        pstree --> show tree starting at init process ; 
+        pstree -p --> show PIDs of all processes 
+        pstree 1000 --> show tree starting at process with 
+                        PID = 1000 
+
+PROCESS GROUP : 
+    - process group of family (aprocess , its chlidren )
+    - some processes may be start new group , it will detach
+        from its parant group , and become process group 
+        leader 
+    -each process maintain the ID of its process group (PGID)
+           for normal process , PGID = its parant PGID 
+    - for any process if PID = PGID then this process its
+        leader 
+
+
+
+PROCESS TYPES : 
+    - interacive processes 
+    - automatic processes (batch processes)
+    - Daemon Processes 
+
+    1 - INTERACTIVE PROCESS : 
+        . it starts by user within terminal 
+        . controlled via that terminal 
+        . attached to its terminal , will be killed if 
+            the terminal closed 
+        . ex: ls , cat , echo 
+
+        . the "Job" Concept :
+            when a command is issued , the execution of this 
+            command is called a job 
+        . The Job can be,
+            . A single process 
+                $ gedit 
+                $ cat my-file 
+                they are jobs , and each job has only one PS 
+            . Multible connected processes 
+                $ ls|sort  //this is one job with two PSs 
+            . A script that runs multiple processes 
+                $./my-script 
+        . JOb can be manipulated in the shell via
+                 "Job Control" 
+        . jobs can be run in two modes : 
+            . foreground // I/P,O/P of the terminal
+                         exclusively for this job 
+                        // you can't run another thing 
+                         on terminal
+            . background 
+                        // I/P && O/P doesn't utilize the
+                             terminal 
+
+                        // possibility of multible jobs in 
+                          background for the same terminal 
+                        
+        
+
+
+
+        .JOB CONTROL : 
+            - START a job in the foreground : 
+                $ ls 
+            - START a brocess in background : 
+               $ gedit& 
+             
+            - working with jobs : 
+                1- pause the foreground job ($Ctrl-z) 
+                2- to resume  the process to FG ($fg) 
+                3- to interrupt(kill) a FG job ($Ctrl-c)
+
+            - Switch the foreground job to background 
+                $ gedit; Ctrl-z;  bg
+            - List jobs within the current shell session 
+                $jobs 
+            - Switch the job from BG to FG 
+                $jobs
+                $fg %n (where i hte the ps no.)
+                $kill %n
+              # JOB CONTROL IS NOT CONTROL SINGLE PROCESS 
+                IT CONTOL A JOB :D 
+
+
+JOBS AND PROCESS GROUPS : 
+            . for each job , a new PS group is created 
+            . each job has its own process group 
+
+
+
+SHELL SESSION : 
+            . each shell has its own session 
+            . All processes running inside this session,
+              will carry the same SID 
+            . The shell is named the session leader 
+            . A shell session contains one or more jobs 
+
+            # SESSION HAS MULTIBE JOBS , JOB HAS MULTIBE 
+              MULTIBE GROUP , GROUP HAS MULTIBE PROCESS 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

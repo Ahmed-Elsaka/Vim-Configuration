@@ -1,0 +1,44 @@
+#include <stdio.h>
+
+void printStarts(int v)
+{
+    int r = 1;
+    int u = v ; 
+    for(int i = 1 ; i<=v ; i++)
+    {
+
+
+
+
+              for(int m = 1; r <= v ; m+=2){
+
+
+
+      
+                   for(int h = u-1 ; h >0; h--)
+                   {
+                      printf(" "); 
+                   }
+                   u--;
+      
+
+                      for(int j =0 ; j<m; j++ )
+                      {
+                        printf("*");
+                      }
+              r++;
+              printf("\n");
+        }
+
+    }
+
+
+
+}
+int main()
+{
+
+
+    printStarts(5);
+
+}

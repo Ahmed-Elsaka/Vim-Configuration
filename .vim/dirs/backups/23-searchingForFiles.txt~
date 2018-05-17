@@ -1,0 +1,71 @@
+            Searching For Files
+
+
+LINUX AND BINARY FILES : 
+    
+    $ls 
+       - in this case the linux search for ls binary file 
+         in PATH and execute it 
+       
+       - So can a user search for a binary file ?
+        
+SEARCH FOR BINARY FILE: 
+    [ The which Command ] 
+       - search for command , the same linux do , but doesn'
+         run it ; 
+       - if you able to run this file , you can know where 
+            is it :D 
+        
+SIMPLE SEARCH : 
+    [ Locate command ]
+        -$locate <filename>
+        -$locate <part of the path or filename>
+            -locate command search on pre-prepared database 
+             of all files in the system with their path 
+        
+        -the database used by locate is created by the prog. 
+         "updatedb"
+            . this prog. runs in CRON JOB that periodically
+              updates the database 
+            . new files may not be in DB for sometime 
+            . to update DB manually 
+                $ sudo updatedb 
+
+        -locate command is useful for searching for
+            system file or traditional linux file 
+        
+A SMARTER SEARCH : 
+    [ find command  ]
+        - search for file using different filters 
+            name , size, last modification date, type, others
+        -A combination of all of those search criteria 
+        - Limit the search scope to certain directory 
+        -skip some subdirectory from search scop 
+        - allow to perform and action on all files that match
+            
+    Selecting the Search Scope 
+            $ find ~ # list all files in home direcroty
+            $ find ~ | wc -l 
+        - you can put miltible passes 
+            $find /bin /sbin /usr/bin 
+            $ find ~/Documents | grep ".pdf"
+    
+    Adding Filters to the Search 
+        
+        Search by File type 
+            $find <scope> -type <type>
+            EX: $ find ~ -type d
+                    # search for all directories 
+                $find ~ -type l # symboliv links 
+                $find ~ -type f
+                $find ~ -type c  # character devices
+                $find ~ -type b  # block device 
+
+
+
+
+
+
+
+
+

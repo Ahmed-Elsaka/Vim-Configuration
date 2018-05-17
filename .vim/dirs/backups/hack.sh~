@@ -1,0 +1,156 @@
+normal='\e[0m' ; blue='\e[1;94m' ; red='\e[1;31m' ; yellow='\e[1;33m' ; ul='\e[1;4m' ; purp='\e[1;35m' ; green='\e[1;32m' ; white='\e[97m'
+
+
+
+banner(){
+clear ; 
+#  echo -e "$white"                   
+#  echo -e '        █████╗ ██╗  ██╗███╗   ███╗███████╗██████╗  '"${red}"'███████╗██╗     ███████╗ █████╗ ██╗  ██╗ █████╗ '"$white" 
+#  echo -e '       ██╔══██╗██║  ██║████╗ ████║██╔════╝██╔══██╗ '"${red}"'██╔════╝██║     ██╔════╝██╔══██╗██║ ██╔╝██╔══██╗'"$white"
+#  echo -e '       ███████║███████║██╔████╔██║█████╗  ██║  ██║ '"${red}"'█████╗  ██║     ███████╗███████║█████╔╝ ███████║'"$white"
+#  echo -e '       ██╔══██║██╔══██║██║╚██╔╝██║██╔══╝  ██║  ██║ '"${red}"'██╔══╝  ██║     ╚════██║██╔══██║██╔═██╗ ██╔══██║'"$white"
+#  echo -e '       ██║  ██║██║  ██║██║ ╚═╝ ██║███████╗██████╔╝ '"${red}"'███████╗███████╗███████║██║  ██║██║  ██╗██║  ██║'"$white"
+#  echo -e '       ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝╚═════╝  '"${red}"'╚══════╝╚══════╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝'"$white"
+#  echo -e '                           Version 0.1 [DEMO] - CODED BY AHMED ELSAKA '  "${red}||||       $white"                                                                
+# echo ; echo ; echo ; echo ; 
+}
+banner;
+if [[ $1 == "-h" || $1 == "--help" ]] ; then
+   echo -e "$blue"
+   echo " ┌════════════════════════════════════════════════════════════════════════════════════════════════════════════════┐ "
+   echo " █ -h --help                   => guess what ?                                                                    █ "
+   echo " ║ -I                                                                                                             ║ "
+   echo " █ -t                                                                                                             █ "
+   echo " ║ -g -                                                                                                           ║ "
+   echo " ║ -i -                                                                                                           ║ "
+   echo " ║ -o -                                                                                                           ║ "
+   echo " ║ -f -                                                                                                           ║ "
+   echo " ║ -d -                                                                                                           ║ "
+   echo " ║ -u -                                                                                                           ║ "
+   echo " ║ -s -                                                                                                           ║ "
+   echo " ║ -k -                                                                                                           ║ "
+   echo " ║ -e -                                                                                                           ║ "
+   echo " ║ -m -                                                                                                           ║ "
+   echo " ║ -K -                                                                                                           ║ "
+   echo " ║ -p -                                                                                                           ║ "
+   echo " ║ eg.                                                                                                            ║ "
+   echo " █ eg.                                                                                                            █ "
+   echo " ║ eg.                                                                                                            ║ "
+   echo " █ eg.                                                                                                            █ "
+   echo " └════════════════════════════════════════════════════════════════════════════════════════════════════════════════┘ "
+   exit
+fi
+
+echo  -e "$red"
+echo -e '[1]'"${yellow}"' - Enable monitor mode :'"$red"
+echo -e '[2]'"${yellow}"' - Enable monitor mode :'"$red" 
+echo -e '[3]'"${yellow}"' - Enable monitor mode :'"$red"
+echo -e '[4]'"${yellow}"' - Enable monitor mode :'"$red"
+echo -e '[5]'"${yellow}"' - Enable monitor mode :'"$red"
+echo -e '[6]'"${yellow}"' - Enable monitor mode :'"$red"
+echo -e '[7]'"${yellow}"' - Enable monitor mode :'"$white"
+
+read -p "Enter your choice : " val ; 
+echo "you have entered $val" 
+
+cardSelect(){
+    echo "iam in function 1"
+    banner;
+    wifiCards=($(ifconfig | awk ' {print $1 }' |cut -d ':' -f 1;));
+    # echo -n "the number of wifi cards "; wc -l $wifiCards;
+    # echo "$wifiCards";
+    varLoop=1;
+    for i in ${wifiCards[@]}
+    do
+        echo "$varLoop - $i ";
+        varLoop=`expr $varLoop + 1`
+    done
+    echo "======================================"
+    read -p "choice the wifi card : " cardName;
+    cardName=`expr $cardName - 1`
+   #return ${wifiCards[cardName]};
+
+}
+
+function2()
+{
+    echo "iam in function 2"
+
+}
+function3()
+{
+    echo "iam in function 3"
+
+}
+function4()
+{
+    echo "iam in function 4"
+
+}
+function5()
+{
+    echo "iam in function 5"
+
+}
+function6()
+{
+    echo "iam in function 6"
+
+}
+function7()
+{
+    echo "iam in function 7"
+
+}
+case ${val} in 
+    1)clear;
+        banner;
+        echo "iam in case 1"
+        cardSelect;
+        wifiCard=${wifiCards[cardName]};
+        echo "you have selected   $wifiCard";
+        airmon-ng check kill;
+        if [ $? -eq "0" ]
+        then 
+            airmon-ng start $wifiCard;
+
+
+        fi 
+        
+        
+
+
+        ;;
+    2) echo "you are in case 2"
+        function2;
+        ;;
+    3) echo "you are in case 3"
+        function3;;
+    4) echo "you are in case 4"
+        function4;;
+    5) echo "you are in case 5"
+        function5;;
+    6) echo "you are in case 6"
+        function6;;
+    7) echo "you are in case 7"
+        function7;;
+    *) echo "this case is not handled";;
+esac
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

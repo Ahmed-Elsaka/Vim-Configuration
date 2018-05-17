@@ -1,0 +1,18 @@
+#!/usr/bin/expect
+
+spawn ssh-keygen -t rsa 
+expect "save the key"
+send "\n"
+expect "Overwrite"
+send "y\n"
+expect "Enter passphrase "
+send "\n"
+expect "same passphrase again"
+send "\n"
+spawn ssh-copy-id killua-ahmed-l@10.32.32.97
+expect "password:"
+send "ahmed157940l\n"
+spawn sftp killua-ahmed-l@10.32.32.97
+expect "sftp>"
+send "exit\n"
+interact

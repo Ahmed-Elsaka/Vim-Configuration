@@ -1,0 +1,29 @@
+#!/bin/bash 
+
+
+
+printStars()
+{
+    v=$1 # this is the first parameter;
+    r=1;
+    u=v;
+    for((i = 1; i<=v; i++))
+    do 
+            for((m=1; r<=v; m+=2))
+            do 
+                    for((h=u-1; h>0;h--))
+                    do 
+                            echo -ne " "; 
+                     done
+                        u=u-1;
+                        for((j=0; j<m;j++))
+                        do
+                            echo -ne "*";
+                        done
+                    r++;
+                   echo ; 
+            done
+    done 
+}
+
+printStars 5

@@ -1,0 +1,10 @@
+#!/bin/bash 
+cut -d: -f1 /etc/passwd > users.txt 
+echo "generating the users..............."
+sleep 3
+echo "users has been generated successfully"
+cut -d: -f1 /etc/group >groups.txt 
+echo "generating the Groups..............."
+sleep 3
+echo "users has been generated successfully"
+echo 'done :)'

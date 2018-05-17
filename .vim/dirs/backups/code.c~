@@ -1,0 +1,83 @@
+#include< regx51.h >
+
+
+ char xdata PORTA _at_ 0x4000; //by making PORTA with address 4000Hex we are selecting Port A of the 8255
+                                 // and the CS low (select the 8255)
+ char xdata PORTB _at_ 0x4001;  //by making PORTA with address 4001Hex we are selecting Port B of the 8255
+                                 // and the CS low (select the 8255)
+
+
+void commandsend(unsigned char i);
+void datasend(unsigned char i);
+void delay();
+
+
+void main(void)
+{
+ unsigned int i=0;
+ unsigned char title[] = " MANCHESTER";  
+ unsigned char title2[] = " UNITED";  
+ 
+//In the main section the commands and functions remain the same as before (without the 8255),
+//The only difference are the functions routines coding which are need to interface with the 8255
+
+ commandsend(0x38);   //INITIALIZE LCD IN 2x16 MATRIX
+ commandsend(0x0e);  //;DISPLAY ON, CURSOR ON
+ commandsend(0x01);  //CLEAR LCD
+ commandsend(0x80);  //SETS LINE AND POSITION: 80H + POSITION   
+ 
+   for (i = 0; i < 11; i++)   //////DISPLAYING ON LCD///////
+   { 
+    datasend(title[i]);  
+   }
+
+    commandsend(0xC0);  //SETS the second line  
+
+ for (i = 0; i < 7; i++)   //////DISPLAYING ON LCD///////
+   { 
+    datasend(title2[i]);  
+   }  
+     
+    while(1);
+} 
+
+//Command send fucntion
+void commandsend(unsigned char i)
+{ 
+   //(Important to check the cirucit diagram and compare it to this program to know the setting of the hex values)
+
+   //the Variable 'i' is there to get parameter from the function and pass it to PORTA (transmitt it trough the 8225 Port A)
+ PORTA = i;//put data into 4000h
+
+   //4hex (0100B) = Enable: 1    RW:0     RS:0  so make E high, Write to lcd, Command Type (transmit it trough the 8225 Port B)
+   PORTB  = 0x04; //put 4h into 4001h
+ delay();
+   
+   //0hex (0000B) = Enable: 0    RW:0     RS:0  so make E Low, Write to lcd, Command Type (transmit it trough the 8225 Port B)
+   PORTB  = 0x00; //put 0h into 4001h
+ delay();
+}
+
+//Data send fucntion
+void datasend (unsigned char i) 
+{
+   //(Important to check the cirucit diagram and compare it to this program to know the setting of the hex values)
+
+   //the Variable 'i' is there to get parameter from the function and pass it to PORTA (transmitt it trough the 8225)
+ PORTA = i; //put data into 4000h
+ 
+   //4hex (0101B) = Enable: 1    RW:0     RS:1  so make E high, Write to lcd, Data Type (transmit it trough the 8225 Port B)
+   PORTB  = 0x05; //put 5h into 4001h
+ delay();
+ 
+   //1hex (0001B) = Enable: 0    RW:0     RS:1  so make E Low, Write to lcd, Data Type (transmit it trough the 8225 Port B)
+   PORTB  = 0x01; //put 1h into 4001h
+ delay();   
+}
+ 
+void delay() 
+{
+ unsigned int i =0;
+  for (i = 0; i < 100; i++);//delay
+} 
+

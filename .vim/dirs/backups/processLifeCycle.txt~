@@ -1,0 +1,82 @@
+                    PROCESS LIFE CYCLE 
+
+PROCESS CREATION : 
+    -Fork-exec procedure 
+        this is done in two steps : 
+            1- Fork:
+                in this step new child (process) is created
+                and prepare it with what it need to run 
+                this includs: 
+                    . Assign it a new pid
+                    .creats associated structure in the kernel
+                    .Sets the ppid, sid, and aother attributes
+                    . add it to the kernel scheduler 
+                    .copy parent's memory space to child
+            2- Execute:
+                child process separates from its parent 
+                and move on with its functionality 
+                this mean the child process will loaded with:
+                    .new memory space instead of its parent 
+                    .will lose access to parent process
+                        resourses 
+
+   
+
+PROCESS VS THREAD : 
+    - PROCESS : is new app like $vi 
+    - THREAD : inside process there is more thread run; 
+    From linux viewpoint : 
+        both process and threads enable parallel operation
+        (multi-tasking) with the help of scheduler in thread            kernel 
+        -thread doesn't has address space , but it points to 
+            parent address space 
+            . all threads in the same process share address
+              space to the parent process ; 
+        - in linux a thread is a process with some special 
+          differences:
+        
+PROCESS TERMINATION : 
+     - process terminated by : 
+        .Normal termination(reaching the end of its operation)
+        .Receiving a Signal that cause it to terminate itself
+        .terminated by the kernel
+    - when the process is terminated, some of its resources
+      are not yet released, and it changes its state to the 
+        ZOMBIE state  ;
+
+    - the process still zombie until the parent kill it 
+        to cleanup ot resources 
+
+PROCESS STATES : 
+        RUNING:
+            run during specific time slot 
+        STOPPED: 
+            stopped until resume signal come 
+        WAITING FOR SOME EVENT:
+           -doesn't take time slot 
+           -waiting some event 
+        ZOMBIE : 
+            stopped and wait the parent to kill it to return
+            resouces 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 

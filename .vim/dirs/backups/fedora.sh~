@@ -1,0 +1,156 @@
+#!/bin/bash 
+normal='\e[0m' ; blue='\e[1;94m' ; red='\e[1;31m' ; yellow='\e[1;33m' ;
+ul='\e[1;4m' ; purp='\e[1;35m' ; green='\e[1;32m' ; white='\e[97m';
+
+banner(){
+clear ; 
+  echo -e "$white"                   
+  echo -e '        █████╗ ██╗  ██╗███╗   ███╗███████╗██████╗  '"${red}"'███████╗██╗     ███████╗ █████╗ ██╗  ██╗ █████╗ '"$white" 
+  echo -e '       ██╔══██╗██║  ██║████╗ ████║██╔════╝██╔══██╗ '"${red}"'██╔════╝██║     ██╔════╝██╔══██╗██║ ██╔╝██╔══██╗'"$white"
+  echo -e '       ███████║███████║██╔████╔██║█████╗  ██║  ██║ '"${red}"'█████╗  ██║     ███████╗███████║█████╔╝ ███████║'"$white"
+  echo -e '       ██╔══██║██╔══██║██║╚██╔╝██║██╔══╝  ██║  ██║ '"${red}"'██╔══╝  ██║     ╚════██║██╔══██║██╔═██╗ ██╔══██║'"$white"
+  echo -e '       ██║  ██║██║  ██║██║ ╚═╝ ██║███████╗██████╔╝ '"${red}"'███████╗███████╗███████║██║  ██║██║  ██╗██║  ██║'"$white"
+  echo -e '       ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝╚═════╝  '"${red}"'╚══════╝╚══════╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝'"$white"
+  echo -e '                           Version 0.1 [DEMO] - CODED BY AHMED ELSAKA '  "${red}||||       $white"                                      
+ echo ; echo ; echo ; echo ; 
+}
+
+postInstall()
+{
+
+     # update dnf.conf to keepcache and fastest mirror
+         echo >>"keepcache = True" >> /etc/dnf/dnf.conf
+         echo >>"fastestmirror = True" >> /etc/dnf/dnf.conf
+     # update repositories 
+         dnf update 
+     # install rpmfusion repositories     
+         sudo dnf install --nogpgcheck http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-24.noarch.rpm http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-24.noarch.rpm
+     
+     # installing dependancies  thoses you will use now or later 
+         sudo dnf install fribidi harfbuzz cmake  curl wget ffmpeg youtube-dl kernel-devel-$(uname -r) kernel-headers-$(uname -r)  pulseaudio libreoffice-langpack-ar fpaste rsync  patch xterm nm-connection-editor git yumex-dnf pavucontrol
+     
+      sudo dnf group install c-development
+      sudo dnf group install hardware-support
+      # install codecs to run sound and video tracks 
+         sudo dnf install gstreamer{1,}-{plugin-crystalhd,ffmpeg,plugins-{good,ugly,bad{,-free,-nonfree,-freeworld,-extras}{,-extras}}} libmpg123 lame-libs gstreamer1-libav gstreamer-plugins-espeak xine-lib xine-lib-devel xine-lib-extras gstreamer-plugins-fc gstreamer-rtsp lame  gstreamer-ffmpeg ffmpeg x264 faad2 flac --setopt=strict=0
+
+     sudo dnf config-manager --set-enabled fedora-cisco-openh264
+     sudo dnf install mozilla-openh264 gstreamer1-plugin-openh264
+     # installing VLC player 
+         sudo dnf install vlc 
+     
+     # install mpv palyer 
+         sudo dnf install mpv 
+     # install google chrome 
+         echo  -e  "[google-chrome]\nname=google-chrome\nbaseurl=http://dl.google.com/linux/chrome/rpm/stable/\$basearch\nenabled=1\ngpgcheck=1\ngpgkey=https://dl-ssl.google.com/linux/linux_signing_key.pub"  |sudo tee  /etc/yum.repos.d/google-chrome.repo ;
+          sudo dnf install google-chrome-stable
+     # install fedy app : 
+         cd && sudo wget http://folkswithhats.org/fedy-installer && sudo chmod +x fedy-installer &&sudo ./fedy-installer
+     # install gimp photo editor 
+         sudo dnf install gimp ; 
+     # install java 
+         sudo dnf install @java 
+     # things you should install fro gnome 
+     sudo dnf install bicon  dconf-editor gconf-editor
+     sudo dnf install  gnome-terminal-nautilus  nautilus-search-tool  gnome-tweak-tool
+     sudo dnf install  zip p7zip gzip cpio unar p7zip-plugins
+     sudo dnf  install @eclipse
+     sudo dnf install vim
+     # torrent : 
+         sudo dnf install transmission
+}
+
+
+customInstall()
+{
+   echo -n "[1] : wine                ";echo "[12] : Gparted"
+   echo -n "[2] : youtube-dl          ";echo "[13] : BleachBit"
+   echo -n "[3] : Media Writer        ";echo "[14] : Curnch" 
+   echo -n "[4] : gimp                ";echo "[15] : Aircrack " 
+   echo -n "[5] : Pinta               ";echo "[16] : ahmed " 
+   echo -n "[6] : Conky               ";echo "[17] : ahmed " 
+   echo -n "[7] : Transmission        ";echo "[18] : ahmed " 
+   echo -n "[8] : qBittorrent         ";echo "[19] : ahmed " 
+   echo -n "[9] : Tixati              ";echo "[20] : ahmed " 
+   echo -n "[10]: Atom                ";echo "[21] : ahmed " 
+   echo -n "[11]: Sublime             ";echo "[22] : ahmed " 
+   read -p " Enet the package number : " num; 
+   case $num in 
+       "1")
+          echo "start installing wine : "
+             dnf install wine;
+             echo "done";;
+       "2") echo
+            echo "start installing youtube-dl " 
+            dnf install youtube-dl ;
+            echo "done ";;
+       "3") echo
+            echo "start installing mediawriter" 
+            dnf install mediawriter;
+            echo "done ";;
+       "4")
+           echo "start installing gimp ";
+           dnf install gimp;
+            echo "done ";;
+       "5")
+           echo "start installing youtube-dl " 
+           dnf install youtube-dl ;
+           echo "done ";;
+       "5")
+           echo "start installing youtube-dl " 
+           dnf install youtube-dl ;
+           echo "done ";;
+       "7") 
+           echo "start installing youtube-dl " 
+           dnf install youtube-dl ;
+           echo "done ";;
+       "8")
+           echo "start installing youtube-dl " 
+           dnf install youtube-dl ;
+           echo "done ";;
+       "9")
+           echo "start installing youtube-dl " 
+           dnf install youtube-dl ;
+           echo "done ";;
+       "10")
+           echo "start installing youtube-dl " 
+           dnf install youtube-dl ;
+           echo "done ";;
+       *) echo "bad choice :D  ";;
+   esac
+}
+
+banner;
+echo  -e "$red"
+echo -e '[1]'"${yellow}"' - post fedora install :'"$red"
+echo -e '[2]'"${yellow}"' - Custom install      :'"$red" 
+echo -e '[3]'"${yellow}"' - Enable monitor mode :'"$red"
+echo -e '[4]'"${yellow}"' - Enable monitor mode :'"$red"
+echo -e '[5]'"${yellow}"' - Enable monitor mode :'"$red"
+echo -e '[6]'"${yellow}"' - Enable monitor mode :'"$red"
+echo -e '[7]'"${yellow}"' - Enable monitor mode :'"$white"
+read -p "Enter your choice : " val ; 
+echo "you have entered $val"    
+if [ $val = "1" ]
+then 
+    echo "you have entered $val";
+    postInstall;
+elif [ $val = "2" ]
+then
+    echo "you have intered $val";
+    customInstall;
+else 
+    echo "you have entered Wrong choice ";
+fi 
+
+
+
+
+
+
+
+
+
+
+
+

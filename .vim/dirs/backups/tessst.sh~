@@ -1,0 +1,12 @@
+cat tes.txt| awk '
+
+    BEGIN{pint $0; print "iam ahmed" }
+    
+
+
+
+
+
+
+
+'

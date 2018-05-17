@@ -1,0 +1,9 @@
+#!/bin/bash 
+read -p "enter number " num ; 
+case $num in 
+    "1") echo iam one ;;
+    "2") echo iam two ;;
+    "3") echo iam three;; 
+    "4") echo iam five ;;
+    *) echo not interested ;;
+esac 

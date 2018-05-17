@@ -1,0 +1,11 @@
+cat tes.txt | awk '
+{
+    BEGIN{sudo dnf update ; }
+
+
+}
+
+
+
+
+'

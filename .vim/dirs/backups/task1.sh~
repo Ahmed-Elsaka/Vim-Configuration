@@ -1,0 +1,4 @@
+mkdir patch;
+echo "Hello from gizaSystems";
+cp /home/killua/training/linux/tasks/task1/task1.sh /home/killua/training/linux;
+

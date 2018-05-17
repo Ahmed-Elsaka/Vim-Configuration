@@ -1,0 +1,44 @@
+#!/bin/bash 
+
+# #if the seperator is ' ' convert it ","
+# sed -i 's/ /,/g' ./sortedOutput4.txt > /dev/null ;
+# #if there is , in the end remov it 
+# sed -i 's/,$/ /g' ./sortedOutput4.txt > /dev/null;
+# # used to filter only successful calls 
+# cat sortedOutput41.txt |awk '/1$/' >sortedOutput4.txt
+# 
+# 
+
+for i in `ls *or* `
+do 
+    x=$(awk 'BEGIN{FS = "," }{
+
+ count = 0 
+ if(NF < 5){
+   count++
+ }
+
+ }
+ END{if(count > 0)
+        print 1
+    else 
+        print 0 }
+        ' $i )
+
+        if [ $x -gt -1 ]
+        then
+          echo welcom
+          sed -i 's/ /,/g' sortedOutput4.txt
+  
+        else     
+         sed -i 's/ /,/g' sortedOutput4.txt 
+        fi
+ 
+echo $i;
+done
+
+
+
+
+
+

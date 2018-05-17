@@ -1,0 +1,159 @@
+            PROCESS MANEGMENT(PART 2)
+2-AUTOMATIC(batch) PROCESS :
+    .process is not start by user 
+        instead, the user schedule it for later start 
+    .it is queued in a spooler area, to be excuted on a FIFO
+    .it is scheduled in one of the following ways,
+        1- schedule to run at a certain date and time 
+            (using "at" command) 
+        2- schedule to run when system load is low :D 
+                ( using "batch" command )
+        3- scheduled to run periodically with certain
+             periodicity
+    
+
+    - [at command]
+       . at [options] <time> <script-file>
+    
+        . at -f <scrit-file> <time>  # f = file  
+            EX : 
+            at 01.35 < job-to-run 
+            at 9am February 2 <job-to-run 
+            at tuesday +2 hours <job-to-run 
+            at -f job-to-run noon -- noon = 12 pm
+        OTHER COMMANDS : 
+            $at -l  # list scheduled jobs 
+            $ atq   # ...................
+            $ at -r 3  # delete scheduled job #3
+            $ atrm 3   # ....................... 
+        
+
+
+    - [batch command ]
+        . batch < file containing jobs >
+        EX : batch < file-to-run 
+
+
+    - CRON JOBS 
+         they are scheduled by the user to run at : 
+            . fixed times 
+            . fixed dates
+            . intervals
+         used often to automate repeated tasks
+         they are called crontab 
+        
+        types of crontab files
+            . user crontab files (per user file)
+            . System crontab files (for root user)
+            . other special files 
+
+    -CRONTAB FILES FORMAT : 
+        .one line per job 
+        . each line has three section
+            1- time scheduled section 
+            2- user section 
+            3- job Description section 
+
+        EX * * * * * command to br excuted
+           | | | | |_day of week(0-6)(Sunday -0)
+           | | | |___month(1-12)
+           | | |_____day of month(1-31)
+           | |_______ hour(0-23)
+           |________ minute (0-59)
+
+        . EX 
+            #execute backup.sh script every sunday at 2:50 AM
+            50 2 * * 0 root backup.sh
+            . THERE ARE OTHER SPECIAL STRINGS  :
+                @reboot, @yearly, @annually, @monthly, @daily
+                @midnight, @hourly 
+
+
+        [crontab Command ] 
+            - it checking for errors on the file 
+                before saving  it 
+            - crontab -e 
+                . edite user crontab 
+            - crontab -l 
+                . display your crontab file 
+
+            - crontab -r 
+                . remove crontab file 
+
+
+        SPEACIAL CRONTAB FILES : 
+            - per user crontab 
+            - system crontab file 
+            - both of these categories of files are stored atq                  /var/spool/cron/crontabs
+            - there are other crontab used be the system  :
+               . the file  /etc/crontab[system]             
+               . crontab files inside  /etc/con.d [packages]
+            # NOT RECOMMENDED TO EDITE /ETC/CRONTAB OR 
+                    /ETC/CON.D
+
+        CRON JOBS OUTPUT : 
+            -error messages for execution send to 
+                /var/log/syslog
+            -by default  using "email" command 
+            - if you don't want to setup the email 
+              redirect the output to /dev/null 
+                ex : * * * * * rm * > /dev/null 
+
+
+
+
+
+3-DAEMON PROCESSES : 
+        - processes that run continously in background 
+        - tradition is to have the daemon name ends with 
+            letter "d" such ad (syslogd, xinetd, ftpd)
+            d refer to daemon 
+        
+        - CREATION OF A DAEMON:
+            1. the parent of daemon is killed 
+            2. the daemon is detached from this controlling 
+                terminal 
+            3. becomes  a session leader (SID = PID)
+            4. becomes a process group leader (PGID = PID)
+            5. set its current directory to be the root dir
+                (/) to allow other any file system to unmoun
+            6. Close any relation that it inherited from its                parent process 
+            7. sets its "stdin, stdout, stderr" to 
+                - logfile , console, /dev/null 
+           
+
+
+        -MANAGING DAEMONS : 
+            there is "init scripts" to  
+                . check status 
+                . start daemon 
+                . stop daemon 
+                . restart daemon 
+            scripts are located in /etc/init.d
+            EX : 
+                sudo /etc/init.d/bluetooth stop 
+                .......................... start
+                
+
+                in other systems 
+                $ sudo restart bluetooth
+
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,22 @@
+#!/usr/bin/expect
+
+spawn sftp killua-ahmed-l@10.32.32.97
+expect "password:"
+send "ahmed157940l\n"
+expect "sftp>"
+send "lcd /home/killua/giza-systems/clientSide/CS\n"
+expect "sftp>"
+send "cd /home/killua-ahmed-l/giza-systems/CS\n"
+expect "sftp>"
+send "put *\n"
+expect "sftp>"
+send "lcd /home/killua/giza-systems/clientSide/FL\n"
+expect "sftp>"
+send "cd /home/killua-ahmed-l/giza-systems/FL\n"
+expect "sftp>"
+send "put *\n"
+send "exit\n"
+interact
+
+
+

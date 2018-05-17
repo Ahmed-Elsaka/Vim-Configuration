@@ -1,0 +1,184 @@
+                lecture 19  
+                (UsingSignals)
+
+
+CONCEPTS : 
+    LAYERS : 
+        -user applications
+        -linux kernel
+        -device Drivers
+        -HW Platform
+   - process communicate with kernel through system calls 
+   - kernel communicate with process through signals
+   - signal may come from process to another process through
+    the kernel 
+    
+    Signals EX:
+        Ctrl-c -> teminate the running application 
+        Ctrl-z -> stop running application 
+        bg , fg 
+        kill command to terminate running application 
+
+
+SIGNALS : 
+    -signals are descripted in both unix and POSIX standard
+    -There are a table of signals. each signal has, 
+        .Signal number
+        .Signal name (starting with 'SIG')
+        .Noraml signals (1-31)
+        .Signals with no. > 31 called "Real Time Signals"
+        . Signal is send to process group , not only process  
+
+
+PASSING SIGNALS TO PROCESS : 
+    [kill command ]
+        $kill <pid> --> passes a signal to the desired process        $kill -<signal number> <pid>
+            -here kill can send any signal to process 
+        $kill <Signal name> <pid> 
+            EX: 
+                $kill -9 1185 = $kill SIGKILL 1185 
+
+OTHER WAYS TO SEND SIGNAL TO PROCESSES "KILL"
+    [killall Command]
+        $killall <signal> <command name>
+            here the process is defined by command not pid 
+        EX: 
+            $killall cat 
+            $killall firefox 
+            - if there are more than instance of the same 
+                program will kill them all 
+            $killall -9 gedite : 
+                killall gedite instances that run on system
+
+SELECTING PROCESSES BY OTHER CRITERIA : 
+    [pkill Command ]
+        $pkill <signal> -u <username> 
+            -send this signal to all processes related through              this user 
+        $pkill <signal> -P <parent process id>
+            -send signal to all childs of this process 
+        $pkill <signal> <pattern of commands>
+        $pkill <signal> -t <terminal name>
+            teminal name = tty1, tty2, .. ,etc ; 
+        
+        EX:
+            pkill -u tom 
+            pkill SIGSTOP -t tty1 
+            pkill -P 1107 
+        
+KILLING GUI PROCESSES WITH THE MOUSE
+    [the xkill command ]
+        1-write xkill on terminal 
+        2-select the window you want kill 
+        
+
+DEALING WITH HANGING GUI APPS 
+    
+    -if gui app hanging, 
+        - get into a linux virtual terminal via,
+                [Ctrl][Alt][F1]
+        -From the virtual terminal, issue the proper "kill"cmd              $killall -9 chrome 
+        -after you are done, get back to tty-7
+                [Alt][F7]
+
+
+
+LIST SIGNAL NAMES : 
+        [kill -l]
+
+REAL TIME SIGNALS : 
+        - signal with no. > 31 
+        - don't have pre-defined function, and it is left to 
+            the user/developer to use 
+        - Defined by the programmer 
+        - Guaranteed order of delivery 
+        
+
+TRIGGER FOR SENDING SIGNALS: 
+        
+        -keyboard Hot keys:
+            EX : Ctrl-c triggers SIGINT 
+                Ctrl-z triggers SIGSTP 
+                Ctrl-\ triggers SIGQUIT
+        
+        -Request from another process 
+            ex: 
+                $kill sending SIGTERM 
+                $fg   sending SIGCONT
+                $bg   sending SIGCONT 
+        -A Hardware Event:
+                when you unplug usb , SIGHUB signal send 
+                to kill all processes that related to this
+                this usb device 
+        -Death of a Related Process 
+                when process terminated, the kernel send : 
+                    .SIGHUB to all children processes 
+                    .SIGCHLD to parent to inform it about 
+                        the death ot chlid process 
+        -Errors and Exceptions 
+
+            EX
+                - if process tries to execute an illegal inst,                  the kernel is triggered to send SIGILL to it
+                - if PS suffers from a Floating point excep. 
+                  the kernel sends it a SIGFPE 
+                
+                
+
+
+PROCESS RESPONSE TO SIGNALS : 
+    
+  1-Default action : 
+        when process recieves a signal, it execute the normal
+        behavior 
+        - some signals have default action of termination
+            SIGTERM,SIGPIPE,SIGUSR1,SIGUSR2 
+        - some signals have the default action of termination           with generation of a core dump 
+            SIGSEGV,SIGILL,SIGAPRT,SIGQUIT 
+        - some signals have  the default action being ignored
+            by the process such as SIGCHLD 
+        - default action for signals can be changed ,
+            SIGTOP, SIGKILL don't have defuault action , they
+            have required action only 
+        
+   2-Ignoring a Signal 
+        - a process can set itself to ignore certain incoming
+            signals, 
+        - some signals can not ignored shuch SIGSTOP,SIGKILL
+
+   3-Blocking A Signal 
+        - process itself can block signal 
+        - blocking a signal mean, keep it in a queue for 
+            later handling 
+
+   4-Catching the signal
+        - A process can catch the signal before its defuault            handler executes , and pass it to a special handler     
+
+POPULAR SIGNALS : 
+    
+    Hang-Up Signal (1) "SIGHUP"
+            used by kernel to inform the processes 
+            running in a tty session when the session 
+            closes.
+            this can be due to,
+                .The modem for the Session disconnects 
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

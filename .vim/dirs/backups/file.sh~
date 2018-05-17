@@ -1,0 +1,21 @@
+#!/bin/bash 
+cat tes.txt| awk '{
+    if($1 > 30)
+        {
+            x = $1 *3 ; 
+            print x ; 
+            y=add($1);
+            print "the value of y is: " y;
+        } else 
+        {
+            x = $1 / 2; 
+            print x; 
+        }
+    }
+
+    function add(x)
+    {
+        x*=2; 
+        print x; 
+       return x; 
+    }'

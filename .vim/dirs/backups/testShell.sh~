@@ -1,0 +1,11 @@
+#!/bin/bash 
+removed="/home/killua/n"
+new="/hom/killua/nnew"
+echo "searching for the file ....."
+sleep 3
+rm $removed
+echo "the file has been removed "
+sleep 5 
+touch $new 
+echo "the file has been created "
+

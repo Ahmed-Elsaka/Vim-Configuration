@@ -1,0 +1,9 @@
+#!/bin/bash 
+for file in  `ls`
+do
+         var=`echo $file  | tr '[A-Z]' '[a-z]'`
+         if [ $var != $file ]
+         then 
+             mv -i -v $file $var 
+         fi 
+done

@@ -1,0 +1,131 @@
+            LECTURE 17 
+                ( PROCESS MONITORING )
+
+INTRODUCTION
+        - each process has PID, PPID, PGID, SID, TTY ; 
+            only interactive PSs has TTY(terminal no.) 
+        - each process has owner (RUID & EUID)
+            RUID = real user id ,
+            EUID = effective user id 
+        - each process had priority (nice)
+        - each process has state (stopped, running , etc)
+        - each process has address space 
+        - each process has file handls 
+            . pointers to files those it use 
+        - each process also has (stdin, stdout, stderr)
+
+
+
+
+    - Process priority : 
+            - each PS has priority value 
+            - the PS priority affects the scheduler behavior
+            - A process with higher priority may,
+                . receive more processor time 
+                . get scheduled more often
+                . Preempt process with low priority 
+            - Process priority is defined by : 
+                . User Controlled value ("nice" Value)
+                    nice increased --> priority decreased
+                . Kernel calculated value (based on PS behave)
+                    . Processing bound
+                    . I/O bound 
+
+
+
+
+
+        - the "nice" Value 
+            - between (-19 - 20), default = 0 ; 
+        
+        -[ nice command ]
+            - $ nice -<value> command 
+              $ nice -n <value> command 
+            EX:
+            . To set nice to value 5 for new process:
+                nice -5 processCommand& ; n=5  (low priority)
+                nice -n 5 processCommand& ; n= 5 
+            . To set nice value = -10 
+                nice --10 processcommand&
+                nice -n -10 processcommand& 
+
+        NOTE: non-root users can only do 1-19 nice values
+
+        -MODIFY PROCESS PRIORITY 
+        -[ renice command ]
+            - $ renice <value> <pid of process>
+                EX -$ renice 10 1002
+        NOTE: you have to be root to increase PS priority        
+
+
+            
+            
+DISPLAY PROCESS INFORMATION & SYSTEM RESOURCE USAGE
+    
+    [COMMANDS]
+        ps : display process static info 
+        pstree : display process hierarchy 
+        top : display resource usage by process 
+        vmsat : display system resource usage 
+        xload: system load average (in graphical fashion)
+        tload: ......................................... 
+        free : display of memory Usage (used/free)        
+        time : measuring running time of a command 
+        uptime: measuring System Uptime 
+            
+    -PS COMMAND 
+        . has a lot of options , the way to display process: 
+            . some options are used to define the scope of 
+                which processes to show 
+            . other options are used to define the format
+                of the lising and which information to show 
+
+
+            1 - defining scope : 
+                $ps: PSs under the current shell 
+                $ps -A : display all processes in the system
+                $ps -e : ...................................
+                $ps a : dispaly all PSs in the system except
+                        those are not attached with terminal
+                ps ax : disp all PSs including those are not 
+                        attached with a terminal 
+
+            2 - defining Format :
+                $ps -f , $ps -F 
+                - to specify which fields to show use "-o"
+                $ ps -o pid,ppid,pgid,sid,command 
+
+
+            ex: 
+                ps -ef |grep root
+                ps aux |grep "pts/2"
+
+
+
+    -TOP COMMAND : 
+            display a dynamic view of the resource usage
+           - Push 'M' to sort be memory usage 
+           - Push 'P' to sort by  processing usage 
+           - Push 'T' to sort by Time 
+           - Push 'k pid' to kill process by its pid 
+           - Push 'h' for getting a help page for all options
+           - Push 'H' to enable/disable showing threads 
+           - Push 'q' to quit the tool 
+             
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
